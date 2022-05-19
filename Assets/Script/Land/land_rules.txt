@@ -1,0 +1,100 @@
+﻿start pos; x: -10 , y: -3;
+value adding to x : 40
+max y: -2.5f
+min y: -3
+
+
+a funciton
+return vector 2
+++40 every time to x
+and give curve
+
+//old code
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Land : MonoBehaviour
+{
+    LineRenderer lr;
+    EdgeCollider2D ec;
+    List<Vector2> landPoss = new List<Vector2>();
+
+    const float startX = -10, startY = -3;
+    const float maxLandCurve = -2.5f, minLandCurve = -3;
+    const int landAdding = 40;
+    float posX, posY;
+    Vector2 pos;
+
+    private void Awake()
+    {
+        lr = GetComponent<LineRenderer>();
+        ec = GetComponent<EdgeCollider2D>();
+    }
+
+    private void Start()
+    {
+        pos = new Vector2(startX, startY);
+
+        landPoss.Add(new Vector2(-10, -3));
+        landPoss.Add(new Vector2(10, -3));
+
+
+
+        //line renderer
+        lr.positionCount = landPoss.Count;
+
+        for (int i = 0; i < landPoss.Count; i++)
+        {
+            lr.SetPosition(i, landPoss[i]);
+        }
+        ec.points = landPoss.ToArray();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            pos = LandVectorGene(pos);
+            landPoss.Add(pos);
+            lr.positionCount = landPoss.Count;
+
+            for (int i = 0; i < landPoss.Count; i++)
+            {
+                lr.SetPosition(i, landPoss[i]);
+            }
+            ec.points = landPoss.ToArray();
+        }
+    }
+
+    Vector2 LandVectorGene(Vector2 pos)
+    {
+        pos.x += landAdding;
+        pos.y = LandCurveGene(pos.y); 
+        return pos;
+    }
+
+    float LandCurveGene(float pos_y)
+    {
+        int randomNum = Random.Range(0, 6);
+        if (randomNum == 2)
+        {
+            pos_y = maxLandCurve;
+        }
+        else
+        {
+            pos_y = minLandCurve;
+        }
+        return pos_y;
+    }
+}
+
+
+
+spawn new game object land
+return parmeter to the land script
+set the land
+after destory it 
+go to step 1
+
