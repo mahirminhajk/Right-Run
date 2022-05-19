@@ -23,8 +23,8 @@ public class Land : MonoBehaviour
     private void Start()
     {
         lastPos = lG.nextLandPos;
-        landPoss.Add(new Vector2(lastPos.x - 40, lastPos.y));
-        landPoss.Add(lastPos);
+        landPoss.Add(new Vector2(lastPos.x - 0.3f, lastPos.y)); // - 0.3f is for fixing the gap of two land 
+        /*landPoss.Add(lastPos);*/
         for (int i = 0; i < 10; i++)
         {
             lastPos = new Vector2(lastPos.x + addPos, SetLandY(lastPos.y));
